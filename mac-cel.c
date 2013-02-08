@@ -20,8 +20,8 @@ int main(int argc, char *argv[]) {
         fputs("Couldn't acquire hnd.\n", stderr);
         return EXIT_FAILURE;
     }
-    if (IOHIDSetParameter(hnd, type, &accel, sizeof(accel)) != KERN_SUCCESS) {
-        NXCloseEventStatus(hnd);
+    setpm = IOHIDSetParameter(hnd, type, &accel, sizeof(accel));
+    if (setpm != KERN_SUCCESS) {
         fputs("Failed to set HID parameters.\n", stderr);
         return EXIT_FAILURE;
     }
