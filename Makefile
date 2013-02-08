@@ -1,5 +1,3 @@
-# vim: noexpandtab :
-
 PREFIX ?= .
 CFLAGS := -ansi -pedantic -Wall -Wextra -Werror ${CFLAGS}
 
