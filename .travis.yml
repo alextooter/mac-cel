@@ -1,2 +1,2 @@
 language: objective-c # Not really, but we need an OSX build :-)
-script: make
+script: "make && ./mac-cel && ./mac-cel -t"
