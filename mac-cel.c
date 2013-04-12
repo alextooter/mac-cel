@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
     CFStringRef device;
     const int32_t accel_amount = INT32_MIN;
     io_connect_t handle;
+    kern_return_t set_accel;
 
     device = CFSTR(kIOHIDMouseAccelerationType);
     if (argc > 1 && (!(strncmp(argv[1], "-t", 3))))
@@ -22,7 +23,7 @@ int main(int argc, char *argv[]) {
         handle,
         device,
         &accel_amount,
-        sizeof(accel)
+        sizeof(accel_amount)
     );
     assert(set_accel == KERN_SUCCESS);
 
