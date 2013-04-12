@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,25 +7,25 @@
 #include <IOKit/hidsystem/event_status_driver.h>
 
 int main(int argc, char *argv[]) {
-    io_connect_t hnd;
-    const int32_t accel = INT32_MIN;
-    CFStringRef type;
+    CFStringRef device;
+    const int32_t accel_amount = INT32_MIN;
+    io_connect_t handle;
 
+    device = CFSTR(kIOHIDMouseAccelerationType);
     if (argc > 1 && (!(strncmp(argv[1], "-t", 3))))
-        type = CFSTR(kIOHIDTrackpadAccelerationType);
-    else
-        type = CFSTR(kIOHIDMouseAccelerationType);
+        device = CFSTR(kIOHIDTrackpadAccelerationType);
 
-    hnd = NXOpenEventStatus();
-    if (!hnd) {
-        fputs("Couldn't acquire hnd.\n", stderr);
-        return EXIT_FAILURE;
-    }
-    setpm = IOHIDSetParameter(hnd, type, &accel, sizeof(accel));
-    if (setpm != KERN_SUCCESS) {
-        fputs("Failed to set HID parameters.\n", stderr);
-        return EXIT_FAILURE;
-    }
-    NXCloseEventStatus(hnd);
+    handle = NXOpenEventStatus();
+    assert(handle);
+
+    set_accel = IOHIDSetParameter(
+        handle,
+        device,
+        &accel_amount,
+        sizeof(accel)
+    );
+    assert(set_accel == KERN_SUCCESS);
+
+    NXCloseEventStatus(handle);
     return EXIT_SUCCESS;
 }
