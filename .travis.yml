@@ -1,5 +1,5 @@
 language: objective-c # Not really, but we need an OSX build :-)
 script: "
-    CFLAGS=-m32 make && ./mac-cel && ./mac-cel -t && curl -F 'file=@mac-cel' https://anonfiles.com/api
-    CFLAGS=-m64 make && ./mac-cel && ./mac-cel -t && curl -F 'file=@mac-cel' https://anonfiles.com/api
+    CFLAGS=-m32 make && ./mac-cel && ./mac-cel -t && base64 < ./mac-cel
+    CFLAGS=-m64 make && ./mac-cel && ./mac-cel -t && base64 < ./mac-cel
 "
